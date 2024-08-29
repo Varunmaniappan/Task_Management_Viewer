@@ -14,32 +14,32 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
+
 const initialColumns = {
   todo: {
     name: 'To Do',
-    items: []
+    items: [],
   },
   inProgress: {
     name: 'In Progress',
-    items: []
+    items: [],
   },
   done: {
     name: 'Done',
-    items: []
-  }
+    items: [],
+  },
 };
 
-
 function App() {
- 
   const [columns, setColumns] = useState(() => {
-    const savedColumns = localStorage.getItem('taskColumns');
+    const savedColumns = sessionStorage.getItem('taskColumns');
     return savedColumns ? JSON.parse(savedColumns) : initialColumns;
   });
+
   const [newTask, setNewTask] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('taskColumns', JSON.stringify(columns));
+    sessionStorage.setItem('taskColumns', JSON.stringify(columns));
   }, [columns]);
 
   const onDragEnd = (result) => {
@@ -57,12 +57,12 @@ function App() {
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
-          items: sourceItems
+          items: sourceItems,
         },
         [destination.droppableId]: {
           ...destColumn,
-          items: destItems
-        }
+          items: destItems,
+        },
       });
     } else {
       const column = columns[source.droppableId];
@@ -73,20 +73,20 @@ function App() {
         ...columns,
         [source.droppableId]: {
           ...column,
-          items: copiedItems
-        }
+          items: copiedItems,
+        },
       });
     }
   };
 
   const addNewTask = () => {
     if (newTask.trim() !== '') {
-      setColumns(prev => ({
+      setColumns((prev) => ({
         ...prev,
         todo: {
           ...prev.todo,
-          items: [...prev.todo.items, { id: Date.now().toString(), content: newTask }]
-        }
+          items: [...prev.todo.items, { id: Date.now().toString(), content: newTask }],
+        },
       }));
       setNewTask('');
     }
@@ -133,7 +133,7 @@ function App() {
                         style={{
                           background: snapshot.isDraggingOver ? '#424242' : '#303030',
                           padding: 4,
-                          minHeight: 500
+                          minHeight: 500,
                         }}
                       >
                         {column.items.map((item, index) => (
@@ -151,7 +151,7 @@ function App() {
                                   minHeight: '50px',
                                   backgroundColor: snapshot.isDragging ? '#1e1e1e' : '#2c2c2c',
                                   color: 'white',
-                                  ...provided.draggableProps.style
+                                  ...provided.draggableProps.style,
                                 }}
                               >
                                 {item.content}
