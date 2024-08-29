@@ -1,5 +1,4 @@
-# Stock Market Viewer Dashboard
-
+# Task Management Viewer Dashboard
 This application was built using react in order to fetch stock market data
 
 ## How to Install Dependencies
