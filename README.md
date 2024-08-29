@@ -1,5 +1,5 @@
 # Task Management Viewer Dashboard
-This application was built using react in order to fetch stock market data
+This application was built using react to prioritize tasks  as To do ,In Progress and Done respectively.We've used drag and drop component from react-component-dnd.
 
 ## How to Install Dependencies
 
