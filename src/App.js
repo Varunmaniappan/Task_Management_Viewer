@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Snackbar from '@mui/material/Snackbar';
+import {
+  CssBaseline, Container, Paper, Typography, TextField, Button, Grid, IconButton,
+  Dialog, DialogActions, DialogContent, DialogTitle, Snackbar
+} from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import { Edit as EditIcon, Delete as DeleteIcon, DeleteForever as DeleteForeverIcon } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -47,13 +40,12 @@ function App() {
     const savedColumns = sessionStorage.getItem('taskColumns');
     return savedColumns ? JSON.parse(savedColumns) : initialColumns;
   });
-
   const [newTask, setNewTask] = useState('');
   const [editingTask, setEditingTask] = useState(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [deletedTask, setDeletedTask] = useState(null); // State to store recently deleted task
-  const [openSnackbar, setOpenSnackbar] = useState(false); // State for Snackbar visibility
+  const [deletedTask, setDeletedTask] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
     sessionStorage.setItem('taskColumns', JSON.stringify(columns));
@@ -68,7 +60,6 @@ function App() {
     if (!result.destination) return;
     const { source, destination } = result;
 
-    // Handle dropping to the dustbin
     if (destination.droppableId === 'dustbin') {
       const sourceColumn = columns[source.droppableId];
       const sourceItems = [...sourceColumn.items];
